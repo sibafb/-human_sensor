@@ -11,7 +11,7 @@ import RPi.GPIO as GPIO
 
 HUMAN_SENSOR_SIGNAL = 18
 
-class HumanSenosr:
+class HumanSensor:
     def __init__(self, pin_asign = HUMAN_SENSOR_SIGNAL, IO_instance = GPIO):
         self.pin = pin_asign
         self.IO = IO_instance
@@ -33,7 +33,7 @@ class HumanSenosr:
         return False
 
     def is_just_detected(self):
-        if self.sensor_value != self.IO.input(self.pin):
+        if self.sensor_value != self.IO.input(self.pin) and self.IO.input(self.pin) ==  GPIO.HIGH:
             self.sensor_value = self.IO.input(self.pin)
             return True
         else:
