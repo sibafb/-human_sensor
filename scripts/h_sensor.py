@@ -10,8 +10,6 @@ import RPi.GPIO as GPIO
 #import Jetson.GPIO as GPIO
 
 HUMAN_SENSOR_SIGNAL = 18
-IO .setmode( GPIO.BCM )
-
 
 class HumanSenosr:
     def __init__(self, pin_asign = HUMAN_SENSOR_SIGNAL, IO_instance = GPIO):
@@ -34,9 +32,20 @@ class HumanSenosr:
             return True
         return False
 
+    def is_just_detected(self):
+        if self.sensor_value != self.IO.input(self.pin):
+            self.sensor_value = self.IO.input(self.pin)
+            return True
+        else:
+            return False
+        
+
+        
+
+
 if __name__ == '__main__':
     try:
-        pass
+        IO .setmode( GPIO.BCM )
     except KeyboardInterrupt:
         pass
     finally:
