@@ -10,9 +10,29 @@ import RPi.GPIO as GPIO
 #import Jetson.GPIO as GPIO
 
 HUMAN_SENSOR_SIGNAL = 18
+IO .setmode( GPIO.BCM )
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup( HUMAN_SENSOR_SIGNAL , GPIO.IN )
+
+class HumanSenosr:
+    def __init__(self, pin_asign = HUMAN_SENSOR_SIGNAL, IO_instance = GPIO):
+        self.pin = pin_asign
+        self.IO = IO_instance
+
+        self.IO.setup( self.pin ,  IO_instance.IN )
+
+        self.sensor_value = self.IO.input(self.pin)
+
+    def value(self):
+        self.sensor_value = self.IO.input(self.pin)
+
+        return self.sensor_value
+    
+    def is_detected(self):
+        self.sensor_value = self.IO.input(self.pin)
+
+        if self.sensor_value == GPIO.HIGH:
+            return True
+        return False
 
 if __name__ == '__main__':
     try:
