@@ -38,14 +38,11 @@ class HumanSensor:
             return True
         else:
             return False
-        
-
-        
 
 
 if __name__ == '__main__':
     try:
-        IO .setmode( GPIO.BCM )
+        pass
     except KeyboardInterrupt:
         pass
     finally:
