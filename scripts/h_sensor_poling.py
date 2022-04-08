@@ -8,7 +8,7 @@ data sheet https://datasheetspdf.com/pdf-file/1493309/ETC/HC-SR501/1
 
 import RPi.GPIO as GPIO
 import rospy
-from std_msgs import Bool
+from std_msgs.msg import Bool
 
 from human_sensor.srv import PolingStart
 from human_sensor.srv import PolingStop
@@ -16,9 +16,7 @@ from human_sensor.srv import PolingStop
 from h_sensor import HumanSensor
 
 class HumanSensorService:
-    def __init__(self, sensor):
-
-        rospy.init_node('human_sensor_node')   
+    def __init__(self, sensor): 
 
         self.sensor = sensor
         
@@ -43,6 +41,8 @@ class HumanSensorService:
 if __name__ == '__main__':
 
     HUMAN_SENSOR_SIGNAL = 18
+
+    rospy.init_node('human_sensor_node') 
 
     rate = rospy.Rate(1)#1Hz 
 
