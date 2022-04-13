@@ -20,10 +20,10 @@ class HumanSensorService:
 
         self.sensor = sensor
         
-        rospy.Service('hs_poling_start', PolingStart, self.poling_start)
-        rospy.Service('hs_poling_stop', PolingStop, self.poling_stop)
+        #rospy.Service('hs_poling_start', PolingStart, self.poling_start)
+        #rospy.Service('hs_poling_stop', PolingStop, self.poling_stop)
 
-        self.publisher = rospy.Publisher('human_detect', Bool, queue_size=5)
+        #self.publisher = rospy.Publisher('human_detect', Bool, queue_size=5)
 
     def poling_start(self):
         pass
@@ -42,9 +42,9 @@ if __name__ == '__main__':
 
     HUMAN_SENSOR_SIGNAL = 18
 
-    rospy.init_node('human_sensor_node') 
+    #rospy.init_node('human_sensor_node') 
 
-    rate = rospy.Rate(1)#1Hz 
+    #rate = rospy.Rate(1)#1Hz 
 
     h_sensor = HumanSensor( HUMAN_SENSOR_SIGNAL, GPIO )
 
