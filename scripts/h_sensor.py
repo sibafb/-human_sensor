@@ -6,38 +6,33 @@ HC-SR501
 data sheet https://datasheetspdf.com/pdf-file/1493309/ETC/HC-SR501/1
 """
 
-import RPi.GPIO as GPIO
-#import Jetson.GPIO as GPIO
+import pigpio
 
 HUMAN_SENSOR_SIGNAL = 18
 
 class HumanSensor:
-    def __init__(self, pin_asign = HUMAN_SENSOR_SIGNAL, IO_instance = GPIO):
+    def __init__(self, pin_asign = HUMAN_SENSOR_SIGNAL, IO_instance = pigpio.pi()):
+
+        self.is_human_detect = False
+
         self.pin = pin_asign
         self.IO = IO_instance
 
-        self.IO.setup( self.pin ,  IO_instance.IN )
+        self.IO.set_mode(self.pin, pigpio.INPUT)
+        self.IO.set_pull_up_down( self.pin, pigpio.PUD_UP )
+
 
         self.sensor_value = self.IO.input(self.pin)
 
-    def value(self):
-        self.sensor_value = self.IO.input(self.pin)
+    def cb_rising_edge(self):
+        self.is_human_detect = True
 
-        return self.sensor_value
-    
-    def is_detected(self):
-        self.sensor_value = self.IO.input(self.pin)
+    def cb_falling_edge(self):
+        self.is_human_detect = False
 
-        if self.sensor_value == GPIO.HIGH:
-            return True
-        return False
+    def is_detect(self):
 
-    def is_just_detected(self):
-        if self.sensor_value != self.IO.input(self.pin) and self.IO.input(self.pin) ==  GPIO.HIGH:
-            self.sensor_value = self.IO.input(self.pin)
-            return True
-        else:
-            return False
+        return self.s_human_detect 
 
 
 if __name__ == '__main__':
@@ -46,5 +41,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     finally:
-        GPIO.cleanup()
-    
+        pass
