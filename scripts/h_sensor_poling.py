@@ -6,7 +6,11 @@ HC-SR501
 data sheet https://datasheetspdf.com/pdf-file/1493309/ETC/HC-SR501/1
 """
 
-import RPi.GPIO as GPIO
+
+import pigpio
+
+from time import sleep
+
 import rospy
 from std_msgs.msg import Bool
 
