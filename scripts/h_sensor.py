@@ -28,12 +28,15 @@ class HumanSensor:
 
         self.publisher = rospy.Publisher( Topic_name, Bool, queue_size=5)
 
-    def cb_rising_edge(self):
+        self.IO.callback(self.pin, pigpio.RISING_EDGE, self.cb_rising_edge)
+        self.IO.callback(self.pin, pigpio.FALLING_EDGE, self.cb_falling_edge)
+
+    def cb_rising_edge(self, gpio, level, tick):
         self.is_human_detect = True
         self.publisher.publish(self.is_human_detect)
         rospy.loginfo("rising")
 
-    def cb_falling_edge(self):
+    def cb_falling_edge(self, gpio, level, tick):
         self.is_human_detect = False
         self.publisher.publish(self.is_human_detect)
         rospy.loginfo("falling")
