@@ -7,6 +7,8 @@ data sheet https://datasheetspdf.com/pdf-file/1493309/ETC/HC-SR501/1
 """
 
 import pigpio
+import rospy
+from std_msgs.msg import Bool
 
 HUMAN_SENSOR_SIGNAL = 18
 
@@ -22,17 +24,19 @@ class HumanSensor:
         self.IO.set_pull_up_down( self.pin, pigpio.PUD_UP )
 
 
-        self.sensor_value = self.IO.input(self.pin)
+        self.sensor_value = self.IO.read(self.pin)
 
         self.publisher = rospy.Publisher( Topic_name, Bool, queue_size=5)
 
     def cb_rising_edge(self):
         self.is_human_detect = True
-        self.publisher(self.is_human_detect)
+        self.publisher.publish(self.is_human_detect)
+        rospy.loginfo("rising")
 
     def cb_falling_edge(self):
         self.is_human_detect = False
-        self.publisher(self.is_human_detect)
+        self.publisher.publish(self.is_human_detect)
+        rospy.loginfo("falling")
 
     def is_detect(self):
         return self.s_human_detect 
@@ -40,7 +44,11 @@ class HumanSensor:
 
 if __name__ == '__main__':
 
+    rospy.init_node('human_sensor', anonymous=True)
+
     human_sensor = HumanSensor()
+
+    rate = rospy.Rate(50)
     try:
         while not rospy.is_shutdown():
             #for now 

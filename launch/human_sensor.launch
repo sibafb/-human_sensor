@@ -1,3 +1,3 @@
 <launch>
-    <node pkg="human_sensor" type="h_sensor_poling.py" name="h_sensor" output="screen"> </node>
+    <node pkg="human_sensor" type="h_sensor.py" name="h_sensor" output="screen"> </node>
 </launch>
