@@ -22,7 +22,7 @@ from h_sensor import HumanSensor
 class HumanSensorService:
     def __init__(self, sensor): 
 
-        self.sensor = sensor
+        self.sensor = HumanSensor()
         
         #rospy.Service('hs_poling_start', PolingStart, self.poling_start)
         #rospy.Service('hs_poling_stop', PolingStop, self.poling_stop)
