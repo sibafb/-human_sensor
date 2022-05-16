@@ -10,7 +10,7 @@ import pigpio
 import rospy
 from std_msgs.msg import Bool
 
-HUMAN_SENSOR_SIGNAL = 18
+HUMAN_SENSOR_SIGNAL = 22
 
 class HumanSensor:
     def __init__(self, pin_asign = HUMAN_SENSOR_SIGNAL, IO_instance = pigpio.pi(), Topic_name = 'human_detect'):
